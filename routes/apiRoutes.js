@@ -1,4 +1,5 @@
 const fs = require('fs');
+
 const router = require('express').Router()
 
 const uniqid = require('uniqid');
@@ -13,12 +14,13 @@ router.get('/notes', (req,res) => {
 
 //post route to notes
 router.post('/notes', (req,res) => {
+    console.log(req.body);
     const newNote = req.body;
     newNote.id = uniqid();
 
     database.push(newNote);
     
-    fs.writeFile("../db/db.json", JSON.stringify(database), (err) => {
+    fs.writeFile("./db/db.json", JSON.stringify(database), (err) => {
         if (err) throw err;
         res.json(newNote);
     });
